@@ -1,11 +1,30 @@
 {
   "name": "bamazoncustomer",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Week 12 HWK Node and MySQL",
+  "main": "BamazonCustomer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Sunita Ramnarinesingh",
+  "license": "ISC",
+  "dependencies": {
+    "console.table": "^0.8.0",
+    "inquirer": "^2.0.0",
+    "mysql": "^2.12.0"
+  },
+  "devDependencies": {
+    "console.table": "^0.8.0",
+    "inquirer": "^2.0.0",
+    "mysql": "^2.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sunita321/nodeJSandMySQL.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/sunita321/nodeJSandMySQL/issues"
+  },
+  "homepage": "https://github.com/sunita321/nodeJSandMySQL#readme"
 }
