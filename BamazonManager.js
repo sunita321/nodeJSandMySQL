@@ -6,7 +6,7 @@ var consoleTable = require('console.table');
 var connection = mysql.createConnection({
 	host: "localhost",
 	user: "root",
-	password: "root",
+	password: "jeff00",
 	database: "Bamazon"
 });
 
@@ -29,32 +29,33 @@ function start() {
 	// list selections
 	inquirer.prompt({
 		name: "taskToDo",
-		type: "rawlist",
-		message: "Please select a task:",
-		choices: ["View Products", "View Low Inventory", "Add Inventory", "Add New Product"]
+		type: "list",
+		message: "Please select a task from the list below:",
+		choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
 	}).then(function(answer) {
 
 		
-		switch (answer.taskToDo.toUpperCase()) {
+		switch (answer.taskToDo) 
+		{
 
-			case "VIEW PRODUCTS":
+			case "View Products for Sale":
 				viewProducts();
 				break;
 
-			case "VIEW LOW INVENTORY":
+			case "View Low Inventory":
 				viewLowInventory();
 				break;
 
-			case "ADD INVENTORY":
+			case "Add to Inventory":
 				addInventory();
 				break;
 
-			case "ADD NEW PRODUCT":
+			case "Add New Product":
 				addNewProduct();
 				break;
 
 			default:
-				console.log("Uh oh! Something went wrong!");
+				console.log("Error has occured!");
 				break;
 		}
 	})
