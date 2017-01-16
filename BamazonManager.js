@@ -135,39 +135,64 @@ var inventoryQuestions =
 
 function addInventory() 
 {
-	var quantityStock;
-	var quantityAdd;
-	// list selections
-	inquirer.prompt(inventoryQuestions).then(function(answer) 
+
+	
+	inventoryQuestions[0].choices = [];//clears choices
+	//Pull in database
+	connection.query('SELECT `ProductName` FROM Products', function(err, res) 
 	{
-		quantityAdd = (answer.stockInput);//number from user input
-		var query = 'SELECT `StockQuantity` FROM `Products` WHERE `ProductName` = ?';
-		connection.query(query, answer.selectProduct, function(err, res)
+
+		// throw error if occurs 
+		if (err) throw err;
+		for (var i = 0; i < res.length; i++) 
 		{
-			if (err) throw err;
-			//console.log(res);
-			quantityStock = parseInt(res[0].StockQuantity, 10);
-			
+			inventoryQuestions[0].choices.push(res[i].ProductName);
+		}
 
-			var newQuantity = quantityStock + quantityAdd;
-			
+		var quantityStock;
+		var quantityAdd;
+		// list selections
+		//console.log(inventoryQuestions[0].choices);
+		inquirer.prompt(inventoryQuestions).then(function(answer) 
+		{
+			quantityAdd = (answer.stockInput);//number from user input
+			var query = 'SELECT `StockQuantity` FROM `Products` WHERE `ProductName` = ?';
+			connection.query(query, answer.selectProduct, function(err, res)
+			{
+				if (err) throw err;
+				//console.log(res);
+				quantityStock = parseInt(res[0].StockQuantity, 10);
+				
 
-			console.log("Product Selected: " + answer.selectProduct + '\n');
-			var query2 = 'UPDATE Products SET `StockQuantity` = ? WHERE `ProductName` = ?';
-	        connection.query(query2, [newQuantity, answer.selectProduct], function(err, res) 
-	        { 	if (err) throw err;
+				var newQuantity = quantityStock + quantityAdd;
+				
 
-	        	//console.log(res);
+				console.log("Product Updated: " + answer.selectProduct + '\n');
+				var query2 = 'UPDATE Products SET `StockQuantity` = ? WHERE `ProductName` = ?';
+		        connection.query(query2, [newQuantity, answer.selectProduct], function(err, res) 
+		        { 	if (err) throw err;
 
-				connection.query('SELECT * FROM `Products`', function(err, res) //updated table
-	            {
-	    			if (err) throw err;
-	    			console.table(res);
-	    			start();//restart order
-				});
-	            
-	       });
-		});
+		        	//console.log(res);
 
-    });
+					connection.query('SELECT * FROM `Products`', function(err, res) //updated table
+		            {
+		    			if (err) throw err;
+		    			console.table(res);
+		    			start();//restart order
+					});
+		            
+		       });
+			});
+
+	    });
+		
+	});
+
+
+}
+
+
+function addProduct()
+{
+
 }
