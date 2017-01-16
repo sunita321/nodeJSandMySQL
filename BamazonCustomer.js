@@ -29,7 +29,7 @@ connection.connect(function(err)
 function start()
 {
 
-    connection.query('SELECT * FROM Products', function(err, res)
+    connection.query('SELECT * FROM `Products`', function(err, res)
     {
         if (err) throw err;
 
@@ -113,7 +113,7 @@ function start()
 function buyProduct (quantityRequested, quantityStock, itemID)
 {
 
-		var query = 'UPDATE Products SET StockQuantity = ? WHERE ItemID = ?';
+		var query = 'UPDATE `Products` SET StockQuantity = ? WHERE `ItemID` = ?';
         connection.query(query, [(quantityStock - quantityRequested), itemID], function(err, res) 
         {
 			connection.query('SELECT * FROM Products', function(err, res) 
